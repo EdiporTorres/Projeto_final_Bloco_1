@@ -1,11 +1,9 @@
 package menuDeCompra;
 
 import coxinha.model.Assado;
-import coxinha.model.Coxinha;
 import coxinha.model.Frito;
 import coxinha.util.*;
 import coxinha.controller.*;
-import coxinha.repository.*;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,7 +16,6 @@ public class Menu {
 		CoxinhaController Coxinha = new CoxinhaController();
 		
 		int opcao,quant, numero, codigo = 0, tipo;
-		;
 		String produto;
 		
 
