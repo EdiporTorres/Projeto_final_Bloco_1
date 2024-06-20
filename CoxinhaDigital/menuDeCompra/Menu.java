@@ -1,5 +1,6 @@
 package menuDeCompra;
 
+import coxinha.model.Coxinha;
 import coxinha.util.*;
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -68,13 +69,13 @@ public class Menu {
 				switch (tipo) {
 				case 1 -> {
 					System.out.println("Digite o nome do Produto Frito:  ");
-					limite = leia.nextFloat();
-					conta.cadastrar(new ContaCorrente(conta.gerarNumero(), codigo, tipo, produto, quant));
+					produto = leia.nextFloat();
+					Coxinha.cadastrar(new ContaCorrente(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
 				}
 				case 2 -> {
 					System.out.println("Digite o nome do Produto Assado: : ");
-					aniversario = leia.nextInt();
-					conta.cadastrar(new ContaPoupanca(conta.gerarNumero(), codigo, tipo, produto, quant));
+					produto = leia.nextInt();
+					Coxinha.cadastrar(new ContaPoupanca(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
 
 				}
 				}
@@ -83,7 +84,7 @@ public class Menu {
 				break;
 			case 2:
 				System.out.println(Cores.TEXT_WHITE + "\n Listar todos produtos");
-				conta.listarTodas();
+				Coxinha.listarTodas();
 				keyPress();
 				break;
 			case 3:
@@ -91,7 +92,7 @@ public class Menu {
 				System.out.println("Digite o numero da conta: ");
 				numero = leia.nextInt();
 
-				conta.procurarPorNumero(numero);
+				Coxinha.procurarPorNumero(numero);
 				keyPress();
 				break;
 			case 4:
@@ -100,7 +101,7 @@ public class Menu {
 				System.out.println("Digite o codigo do produto: ");
 				codigo = leia.nextInt();
 
-				var buscaConta = conta.buscarNaColletion(codigo);
+				var buscaConta = Coxinha.buscarNaColletion(codigo);
 
 				if (buscaConta != null) {
 					tipo = buscaConta.getTipo();
@@ -116,12 +117,12 @@ public class Menu {
 					switch (tipo) {
 					case 1 -> {
 
-						conta.atualizar(new ContaCorrente(conta.gerarNumero(), codigo, tipo, produto, quant));
+						Coxinha.atualizar(new ContaCorrente(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
 					}
 					case 2 -> {
 						System.out.println(" ");
-						conta.atualizar(
-								new ContaPoupanca(conta.gerarNumero(), codigo, tipo, produto, quant));
+						Coxinha.atualizar(
+								new ContaPoupanca(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
 					}
 					default -> {
 						System.out.println("Tipo de conta invalido!");
