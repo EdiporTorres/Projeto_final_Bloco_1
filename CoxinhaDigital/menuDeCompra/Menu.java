@@ -1,7 +1,11 @@
 package menuDeCompra;
 
+import coxinha.model.Assado;
 import coxinha.model.Coxinha;
+import coxinha.model.Frito;
 import coxinha.util.*;
+import coxinha.controller.*;
+import coxinha.repository.*;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,14 +14,16 @@ public class Menu {
 	public static Scanner leia = new Scanner(System.in);
 
 	public static void main(String[] args) {
-
-		int opcao,quant, numero, codigo, tipo;
+		
+		CoxinhaController Coxinha = new CoxinhaController();
+		
+		int opcao,quant, numero, codigo = 0, tipo;
 		;
 		String produto;
 		
 
 		while (true) {
-			System.out.println(Cores.TEXT_BLACK + Cores.ANSI_PURPLE_BACKGROUND);
+			System.out.println(Cores.TEXT_BLACK + Cores.ANSI_WHITE_BACKGROUND);
 			System.out.println("*****************************************************");
 			System.out.println("                                                     ");
 			System.out.println("              BEM VINDO AO COXINHA DIGITAL           ");
@@ -53,8 +59,8 @@ public class Menu {
 			case 1:
 				System.out.println(Cores.TEXT_WHITE + "\n Cadastrar Produto");
 
-				System.out.println("Digite o Codigo do produto: ");
-				codigo = leia.nextInt();
+				System.out.println("Digite a quantidade que deseja adicionar: ");
+				quant = leia.nextInt();
 				System.out.println("Digite o Nome do Produto:  ");
 				leia.skip("\\R?");
 				produto = leia.nextLine();
@@ -63,19 +69,15 @@ public class Menu {
 					System.out.println("Digite o tipo de produto 1-Frito  2- Assado: ");
 					tipo = leia.nextInt();
 				} while (tipo < 1 && tipo > 2);
-				System.out.println("Quantidade que deseja colocar.");
-				quant = leia.nextInt();
+
 
 				switch (tipo) {
 				case 1 -> {
-					System.out.println("Digite o nome do Produto Frito:  ");
-					produto = leia.nextFloat();
-					Coxinha.cadastrar(new ContaCorrente(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
+	
+					Coxinha.cadastrar(new Frito(Coxinha.gerarNumero(), tipo, quant, produto));
 				}
 				case 2 -> {
-					System.out.println("Digite o nome do Produto Assado: : ");
-					produto = leia.nextInt();
-					Coxinha.cadastrar(new ContaPoupanca(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
+					Coxinha.cadastrar(new Assado(Coxinha.gerarNumero(), tipo, quant, produto  ));
 
 				}
 				}
@@ -92,7 +94,7 @@ public class Menu {
 				System.out.println("Digite o numero da conta: ");
 				numero = leia.nextInt();
 
-				Coxinha.procurarPorNumero(numero);
+				Coxinha.procurarPorNumero(codigo);
 				keyPress();
 				break;
 			case 4:
@@ -101,10 +103,10 @@ public class Menu {
 				System.out.println("Digite o codigo do produto: ");
 				codigo = leia.nextInt();
 
-				var buscaConta = Coxinha.buscarNaColletion(codigo);
+				var buscaprod = Coxinha.buscarNaColletion(codigo);
 
-				if (buscaConta != null) {
-					tipo = buscaConta.getTipo();
+				if (buscaprod != null) {
+					tipo = buscaprod.getTipo();
 
 					System.out.println("Digite o Codigo do produto: ");
 					codigo = leia.nextInt();
@@ -117,12 +119,11 @@ public class Menu {
 					switch (tipo) {
 					case 1 -> {
 
-						Coxinha.atualizar(new ContaCorrente(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
+						Coxinha.atualizar(new Frito(Coxinha.gerarNumero(), tipo, quant, produto));
 					}
 					case 2 -> {
 						System.out.println(" ");
-						Coxinha.atualizar(
-								new ContaPoupanca(Coxinha.gerarNumero(), codigo, tipo, produto, quant));
+						Coxinha.atualizar(new Assado(Coxinha.gerarNumero(), tipo, quant, produto ));
 					}
 					default -> {
 						System.out.println("Tipo de conta invalido!");
@@ -137,7 +138,7 @@ public class Menu {
 				System.out.println(Cores.TEXT_WHITE + "\n Apagar Produto  ");
 				System.out.println("Digite o codigo do produto que deseja apagar: ");
 				codigo = leia.nextInt();
-				conta.deletar(codigo);
+				Coxinha.deletar(codigo);
 				keyPress();
 				break;
 
