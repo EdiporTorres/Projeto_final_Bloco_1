@@ -91,7 +91,7 @@ public class Menu {
 				break;
 			case 3:
 				System.out.println(Cores.TEXT_WHITE + "\n Buscar produtos por numero");
-				System.out.println("Digite o numero da conta: ");
+				System.out.println("Digite o numero do produto: ");
 				numero = leia.nextInt();
 
 				Coxinha.procurarPorNumero(codigo);
@@ -126,11 +126,11 @@ public class Menu {
 						Coxinha.atualizar(new Assado(Coxinha.gerarNumero(), tipo, quant, produto ));
 					}
 					default -> {
-						System.out.println("Tipo de conta invalido!");
+						System.out.println("Produto invalido!");
 					}
 					}
 				} else {
-					System.out.println("Conta não  foi encontrada!");
+					System.out.println("Produto não encontrado foi encontrada!");
 					keyPress();
 					break;
 				}
